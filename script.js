@@ -59,7 +59,7 @@ botaoEnviar.addEventListener("click", async function () {
     .replace("{link}", linkWhatsapp);
 
   try {
-    const res = await fetch("http://localhost:3000/send-sms", {
+    const res = await fetch("https://nona-nonirrigated-grinningly.ngrok-free.dev/send-sms", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
