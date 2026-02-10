@@ -6,6 +6,7 @@ const lista = document.getElementById("listaNumeros");
 const selectMensagem = document.getElementById("mensagem");
 const preview = document.getElementById("previewMensagem");
 const whatsappInput = document.getElementById("whatsapp");
+const vagaInput = document.getElementById("vaga");
 const form = document.getElementById("formulario");
 const botaoEnviar = document.querySelector(".enviar");
 
@@ -18,6 +19,7 @@ whatsappInput.addEventListener("input", () => {
   aplicarMascara(whatsappInput);
   atualizarPreview();
 });
+vagaInput.addEventListener("input", atualizarPreview);
 
 inputNumero.addEventListener("input", () => {
   aplicarMascara(inputNumero);
@@ -46,7 +48,15 @@ botaoEnviar.addEventListener("click", async function () {
     return;
   }
 
-  const mensagemFinal = selectMensagem.value.replace("{whatsapp}", whatsappInput.value);
+  let whatsappLimpo = whatsappInput.value.replace(/\D/g, "");
+  if (whatsappLimpo.length === 11) whatsappLimpo = "55" + whatsappLimpo;
+
+  const linkWhatsapp = `https://wa.me/${whatsappLimpo}`;
+
+  let mensagemFinal = selectMensagem.value
+    .replace("{whatsapp}", whatsappInput.value)
+    .replace("{vaga}", vagaInput.value || "NÃO INFORMADA")
+    .replace("{link}", linkWhatsapp);
 
   try {
     const res = await fetch("http://localhost:3000/send-sms", {
@@ -93,12 +103,19 @@ function aplicarMascara(input) {
 function atualizarPreview() {
   let msg = selectMensagem.value;
   let whatsapp = whatsappInput.value.replace(/\D/g, "");
+  let vaga = vagaInput.value || "NÃO INFORMADA";
 
   if (whatsapp.length === 11) whatsapp = "55" + whatsapp;
 
   let whatsappFormatado = whatsapp ? formatarNumero(whatsapp) : "SEU_WHATSAPP";
+  let linkWhatsapp = whatsapp ? `https://wa.me/${whatsapp}` : "LINK_WHATSAPP";
 
-  preview.textContent = msg ? msg.replace("{whatsapp}", whatsappFormatado) : "";
+  preview.textContent = msg
+    ? msg
+        .replace("{whatsapp}", whatsappFormatado)
+        .replace("{vaga}", vaga)
+        .replace("{link}", linkWhatsapp)
+    : "";
 }
 
 function adicionarNumero() {
