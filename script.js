@@ -112,6 +112,7 @@ function atualizarPreview() {
 
   preview.textContent = msg
     ? msg
+        .replace(/\\n/g, "\n")
         .replace("{whatsapp}", whatsappFormatado)
         .replace("{vaga}", vaga)
         .replace("{link}", linkWhatsapp)
