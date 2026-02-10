@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Envio de SMS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Teste</h2>
+
+  <form id="formulario">
+
+    <label>Senha</label>
+    <input type="password" id="senha" placeholder="Digite a senha">
+
+    <label>Mensagem</label>
+    <select id="mensagem">
+      <option value="">Selecione uma mensagem</option>
+      <option value="Olá, entramos em contato sobre sua candidatura. Retorne pelo WhatsApp {whatsapp}. Caso não queira mais receber mensagens, responda SAIR.">
+        Contato sobre candidatura
+      </option>
+      <option value="Você foi selecionado para a próxima etapa do processo seletivo. Fale conosco pelo WhatsApp {whatsapp}. Caso não queira mais receber mensagens, responda SAIR.">
+        Selecionado para próxima etapa
+      </option>
+      <option value="MENSAGEM DE TESTE DO SISTEMA. Este SMS e apenas para validacao tecnica do envio.">
+        ⚠ Mensagem de teste do sistema
+      </option>
+    </select>
+
+    <div id="previewBox">
+      <strong>Prévia da mensagem:</strong>
+      <p id="previewMensagem"></p>
+    </div>
+
+    <label>WhatsApp para retorno</label>
+    <input type="text" id="whatsapp" placeholder="Ex: 11999999999">
+
+    <label>Adicionar número de destino</label>
+    <div class="row">
+      <input type="text" id="numero" placeholder="Ex: 11988887777">
+      <button type="button" onclick="adicionarNumero()">Adicionar</button>
+    </div>
+
+    <label>Números adicionados</label>
+    <textarea id="listaNumeros" readonly></textarea>
+
+    <button type="button" class="enviar">Enviar SMS</button>
+  </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

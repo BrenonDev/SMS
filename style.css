@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.container {
+  width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row input {
+  flex: 1;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+button.enviar {
+  width: 100%;
+  margin-top: 15px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+button.enviar:hover {
+  background: #256628;
+}
+
+#previewBox {
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#previewMensagem {
+  margin-top: 5px;
+  font-size: 13px;
+}
