@@ -42,40 +42,36 @@ botaoEnviar.addEventListener("click", async function () {
   }
 
   if (numeros.length === 0) {
-    alert("Adicione pelo menos um número.");
+    alert("Adicione um número.");
     return;
   }
 
   const mensagemFinal = selectMensagem.value.replace("{whatsapp}", whatsappInput.value);
 
-  let sucesso = 0;
-  let falha = 0;
+  try {
+    const res = await fetch("http://localhost:3000/send-sms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mensagem: mensagemFinal,
+        numeros: [numeros[0]],
+        senha: senhaInput.value
+      })
+    });
 
-  for (const numero of numeros) {
-    try {
-      const res = await fetch("http://localhost:3000/send-sms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          mensagem: mensagemFinal,
-          numeros: [numero],
-          senha: senhaInput.value
-        })
-      });
+    const data = await res.json();
+    console.log(`Número: ${numeros[0]}`, data);
 
-      const data = await res.json();
-      console.log(`Número: ${numero}`, data);
-
-      if (res.ok) sucesso++;
-      else falha++;
-
-    } catch (err) {
-      console.error(`Erro ao enviar para ${numero}:`, err);
-      falha++;
+    if (res.ok) {
+      alert("Envio realizado com sucesso!");
+    } else {
+      alert("Erro no envio.");
     }
-  }
 
-  alert(`Envio concluído! Sucesso: ${sucesso}, Falha: ${falha}`);
+  } catch (err) {
+    console.error("Erro ao enviar:", err);
+    alert("Erro ao enviar.");
+  }
 });
 
 
@@ -106,17 +102,17 @@ function atualizarPreview() {
 }
 
 function adicionarNumero() {
+  if (numeros.length >= 1) {
+    alert("Só é permitido enviar para um número por vez.");
+    return;
+  }
+
   let numero = inputNumero.value.replace(/\D/g, "");
 
   if (!numero.startsWith("55")) numero = "55" + numero;
 
   if (!validarNumero(numero)) {
     alert("Número inválido.");
-    return;
-  }
-
-  if (numeros.includes(numero)) {
-    alert("Número já cadastrado.");
     return;
   }
 
