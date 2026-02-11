@@ -58,6 +58,12 @@ botaoEnviar.addEventListener("click", async function () {
     .replace("{vaga}", vagaInput.value || "NÃO INFORMADA")
     .replace("{link}", linkWhatsapp);
 
+  // ✅ VALIDAÇÃO DE 160 CARACTERES
+  if (mensagemFinal.length > 160) {
+    alert(`Mensagem muito longa (${mensagemFinal.length} caracteres). Máximo permitido: 160.`);
+    return;
+  }
+
   try {
     const res = await fetch("https://nona-nonirrigated-grinningly.ngrok-free.dev/send-sms", {
       method: "POST",
@@ -110,13 +116,14 @@ function atualizarPreview() {
   let whatsappFormatado = whatsapp ? formatarNumero(whatsapp) : "SEU_WHATSAPP";
   let linkWhatsapp = whatsapp ? `https://wa.me/${whatsapp}` : "LINK_WHATSAPP";
 
-  preview.textContent = msg
+  let textoFinal = msg
     ? msg
-        .replace(/\\n/g, "\n")
         .replace("{whatsapp}", whatsappFormatado)
         .replace("{vaga}", vaga)
         .replace("{link}", linkWhatsapp)
     : "";
+
+  preview.textContent = textoFinal;
 }
 
 function adicionarNumero() {
