@@ -48,15 +48,22 @@ botaoEnviar.addEventListener("click", async function () {
     return;
   }
 
-  let whatsappLimpo = whatsappInput.value.replace(/\D/g, "");
+  let whatsappLimpo = whatsappInput.value.replace(/\D/g, "").trim();
   if (whatsappLimpo.length === 11) whatsappLimpo = "55" + whatsappLimpo;
 
   const linkWhatsapp = `https://wa.me/${whatsappLimpo}`;
 
-  let mensagemFinal = selectMensagem.value
-    .replace("{whatsapp}", whatsappInput.value)
-    .replace("{vaga}", vagaInput.value || "NÃO INFORMADA")
+  let mensagemFinal = selectMensagem.value.trim()
+    .replace("{whatsapp}", whatsappInput.value.trim())
+    .replace("{vaga}", vagaInput.value.trim() || "NÃO INFORMADA")
     .replace("{link}", linkWhatsapp);
+
+  // ✅ validação: sem acentos ou caracteres especiais
+  const regexPermitido = /^[A-Za-z0-9 .,:\-_\/]+$/;
+  if (!regexPermitido.test(mensagemFinal)) {
+    alert("A mensagem nao pode conter acentos ou caracteres especiais.");
+    return;
+  }
 
   // ✅ VALIDAÇÃO DE 160 CARACTERES
   if (mensagemFinal.length > 160) {
@@ -71,7 +78,7 @@ botaoEnviar.addEventListener("click", async function () {
       body: JSON.stringify({
         mensagem: mensagemFinal,
         numeros: [numeros[0]],
-        senha: senhaInput.value
+        senha: senhaInput.value.trim()
       })
     });
 
@@ -80,6 +87,8 @@ botaoEnviar.addEventListener("click", async function () {
 
     if (res.ok) {
       alert("Envio realizado com sucesso!");
+      numeros = [];          // limpa a lista interna
+      lista.value = "";      // limpa o campo visual
     } else {
       alert("Erro no envio.");
     }
@@ -108,8 +117,8 @@ function aplicarMascara(input) {
 
 function atualizarPreview() {
   let msg = selectMensagem.value;
-  let whatsapp = whatsappInput.value.replace(/\D/g, "");
-  let vaga = vagaInput.value || "NÃO INFORMADA";
+  let whatsapp = whatsappInput.value.replace(/\D/g, "").trim();
+  let vaga = vagaInput.value.trim() || "NÃO INFORMADA";
 
   if (whatsapp.length === 11) whatsapp = "55" + whatsapp;
 
@@ -132,7 +141,7 @@ function adicionarNumero() {
     return;
   }
 
-  let numero = inputNumero.value.replace(/\D/g, "");
+  let numero = inputNumero.value.replace(/\D/g, "").trim();
 
   if (!numero.startsWith("55")) numero = "55" + numero;
 
