@@ -10,6 +10,20 @@ const vagaInput = document.getElementById("vaga");
 const form = document.getElementById("formulario");
 const botaoEnviar = document.querySelector(".enviar");
 
+let enviando = false;
+const textoOriginalBotao = botaoEnviar.innerHTML;
+
+function setLoading(ativo) {
+  if (ativo) {
+    botaoEnviar.disabled = true;
+    botaoEnviar.innerHTML = "Enviando... ⏳";
+  } else {
+    botaoEnviar.disabled = false;
+    botaoEnviar.innerHTML = textoOriginalBotao;
+    enviando = false;
+  }
+}
+
 form.addEventListener("submit", function(e) {
   e.preventDefault();
 });
@@ -33,6 +47,8 @@ inputNumero.addEventListener("keydown", function(e) {
 });
 
 botaoEnviar.addEventListener("click", async function () {
+  if (enviando) return;
+
   if (selectMensagem.value === "") {
     alert("Selecione uma mensagem.");
     return;
@@ -71,6 +87,9 @@ botaoEnviar.addEventListener("click", async function () {
     return;
   }
 
+  enviando = true;
+  setLoading(true);
+
   try {
     const res = await fetch("https://nona-nonirrigated-grinningly.ngrok-free.dev/send-sms", {
       method: "POST",
@@ -87,8 +106,8 @@ botaoEnviar.addEventListener("click", async function () {
 
     if (res.ok) {
       alert("Envio realizado com sucesso!");
-      numeros = [];          // limpa a lista interna
-      lista.value = "";      // limpa o campo visual
+      numeros = [];
+      lista.value = "";
     } else {
       alert("Erro no envio.");
     }
@@ -96,6 +115,8 @@ botaoEnviar.addEventListener("click", async function () {
   } catch (err) {
     console.error("Erro ao enviar:", err);
     alert("Erro ao enviar.");
+  } finally {
+    setLoading(false);
   }
 });
 
