@@ -91,7 +91,7 @@ botaoEnviar.addEventListener("click", async function () {
   setLoading(true);
 
   try {
-    const res = await fetch("https://nona-nonirrigated-grinningly.ngrok-free.dev/send-sms", {
+    const res = await fetch("https://sms-backend-1278.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
