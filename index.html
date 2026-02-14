@@ -2,38 +2,41 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Envio de SMS</title>
+  <title>Envio de SMS - Valle RH</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-  <h2>Envio de SMS - Valle RH</h2>
+  <img id="logo" src="assets/logo_vallerh.png" alt="logo">
+  <h2>Envio de SMS</h2>
+  <p class="subtitulo">Plataforma interna • Valle RH</p>
 
   <form id="formulario">
 
     <label>Senha</label>
     <input type="password" id="senha" placeholder="Digite a senha">
 
-    <label>Mensagem</label>
+    <label>Modelo de mensagem</label>
     <select id="mensagem">
       <option value="">Selecione uma mensagem</option>
 
       <option value="Valle RH: recebemos seu curriculo para {vaga}. Para seguir no processo ou cancelar, chame no WhatsApp: {link}">
-        Valle RH - Modelo Neutro
+        Modelo Neutro
       </option>
       
       <option value="Oi, somos da Valle RH. Recebemos seu curriculo para {vaga}. Para continuar ou cancelar, chame no WhatsApp: {link}">
-        Valle RH - Modelo Humano
+        Modelo Humano
       </option>
 
       <option value="Valle RH: recebemos seu curriculo para {vaga}. Precisamos confirmar ou cancelar sua candidatura pelo WhatsApp: {link}">
-        Valle RH - Modelo Urgente
+        Modelo Urgente
       </option>
     </select>
 
     <div id="previewBox">
-      <strong>Prévia da mensagem:</strong>
+      <strong>Prévia da mensagem</strong>
       <p id="previewMensagem"></p>
     </div>
 
@@ -53,6 +56,7 @@
     <textarea id="listaNumeros" readonly></textarea>
 
     <button type="button" class="enviar">Enviar SMS</button>
+
   </form>
 </div>
 
