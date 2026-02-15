@@ -96,25 +96,25 @@ botaoEnviar.addEventListener("click", async function () {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         mensagem: mensagemFinal,
-        numeros: [numeros[0]],
+        numeros: numeros,
         senha: senhaInput.value.trim()
       })
     });
 
     const data = await res.json();
-    console.log(`Número: ${numeros[0]}`, data);
+    console.log("Resposta do servidor:", data);
 
     if (res.ok) {
       alert("Envio realizado com sucesso!");
       numeros = [];
       lista.value = "";
     } else {
-      alert("Erro no envio.");
+      alert(data.erro || "Erro ao enviar SMS.");
     }
 
   } catch (err) {
     console.error("Erro ao enviar:", err);
-    alert("Erro ao enviar.");
+    alert("Erro de conexão com o servidor.");
   } finally {
     setLoading(false);
   }
