@@ -22,14 +22,14 @@ body {
 img#logo {
   position: absolute;
   top: 24px;
-  right: 21px;
+  left: 24px;
   width: 100px;
 }
 
 h2 {
   text-align: center;
   color: #EB602D;
-  margin-block: 50px 4px;
+  margin-block: 60px 4px;
 }
 
 .subtitulo {
@@ -41,7 +41,7 @@ h2 {
 
 label {
   font-size: 14px;
-  margin-top: 14px;
+  margin-block: 14px 6px;
   display: block;
   font-weight: 600;
   color: #444;
@@ -50,7 +50,6 @@ label {
 input, select, textarea {
   width: 100%;
   padding: 10px;
-  margin-top: 6px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
@@ -77,6 +76,7 @@ textarea {
 }
 
 .row button {
+  height: 36px;
   background: #EB602D;
   color: white;
   border: none;
